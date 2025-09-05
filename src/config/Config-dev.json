@@ -1,0 +1,10 @@
+{
+    "nutrisnap": {
+        "server": "aws-0-ap-southeast-1.pooler.supabase.com",
+        "portdb": 5432,
+        "user": "postgres.jxrbcgrgikgrdpowryqw",
+        "password": "masuksaja#46",
+        "scheme": "postgres"
+    },
+    "token":"simulasi"
+}
