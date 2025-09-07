@@ -3,6 +3,7 @@ package utils
 import (
 	modelapp "api_model_cnn/src/apimodels/model"
 
+
 	"github.com/alexcesaro/log/stdlog"
 	"github.com/gin-contrib/requestid"
 	"github.com/gin-gonic/gin"
@@ -10,7 +11,11 @@ import (
 )
 
 var Logkoe = stdlog.GetFromFlags()
-
+var CONTENT_TYPE = modelapp.ContentType{
+	JSON:     "application/json",
+	FormData: "multipart/form-data; boundary=<calculated when request is sent>",
+	Plain:    "text/plain",
+}
 
 
 // Fields type, used to pass to `WithFields`.

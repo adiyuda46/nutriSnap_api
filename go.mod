@@ -41,7 +41,7 @@ require (
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/gin-gonic/gin v1.10.1
 	github.com/go-resty/resty/v2 v2.16.5
-	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
+	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/lib/pq v1.10.9
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/rs/cors v1.11.1

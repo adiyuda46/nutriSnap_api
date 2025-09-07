@@ -28,7 +28,6 @@ func (i *postgres) SqlDb() *sql.DB {
 }
 
 func CreateConnectionPostgres(config *config.Config) Connection {
-	fmt.Println("adi 1")
 	fmt.Println(config)
 	conn, errDb := sql.Open("postgres",config.Dns)
 	if errDb != nil {

@@ -33,5 +33,15 @@ func (n *NutriSnapController) Predict(c *gin.Context)  {
 		return
 	}
 	
+	result , err := n.nutriSnap.PredictService(input.PredictModelImg)
+	if err != nil {
+		utils.HandleError(c, 404, 404, "Error Get data", err, "Error Get Email")
+		return
+	}
+	// Handling Success
+	utils.HandleSuccess(c, http.StatusOK, 200, "data di temukan", gin.H{
+		"Label": result,
+	}, "label: ", "sukses")
+
 
 }

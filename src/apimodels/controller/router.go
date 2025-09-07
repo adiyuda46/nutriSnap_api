@@ -22,6 +22,6 @@ func CreateNutriSnapController(r *gin.Engine, nutriSnap service.NutriSnapService
 	{
 		V1public.POST("/", controller.r.HandleContext)
 		V1public.POST("/id",controller.getId)
-		//V1public.POST("/predict")
+		V1public.POST("/predict",controller.Predict)
 	}
 }

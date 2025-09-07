@@ -12,7 +12,7 @@ type serviceManager struct {
 
 // service model
 func (s *serviceManager) NutriSnapService() service.NutriSnapService  {
-	return service.CreateNutriSnapServiceImpl(s.repo.Repository())
+	return service.CreateNutriSnapServiceImpl(s.repo.Repository(),s.repo.HTTPRequest())
 }
 
 

@@ -33,7 +33,7 @@ func (t *httpRequest) Request(path string, headers, params, querys map[string]st
 	start := time.Now()
 	if headers == nil {
 		response, err = t.c.
-			SetHeader("Content-Type", "application/json").
+			SetHeader("Content-Type", utils.CONTENT_TYPE.JSON).
 			SetPathParams(params).
 			SetQueryParams(querys).
 			SetBody(body).
