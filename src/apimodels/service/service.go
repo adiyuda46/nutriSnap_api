@@ -15,6 +15,7 @@ type NutriSnapService interface {
 	GetEmailService(id int) (string, error)
 	PredictService(string) (model.RespGizi, error)
 	GetGiziDetailService(label string) (model.RespGiziDetail, error)
+	GetGiziAkgService(label string) (model.RespGiziDetail, error)
 }
 
 type NutriSnapServiceImpl struct {
@@ -22,9 +23,18 @@ type NutriSnapServiceImpl struct {
 	Thirdparty thirdparty.HTTPRequest
 }
 
+// GetGiziAkgService implements NutriSnapService.
+func (ns *NutriSnapServiceImpl) GetGiziAkgService(label string) (model.RespGiziDetail, error) {
+	result, err := ns.NutriSnap.GetGiziAKgRepository(label)
+	if err != nil {
+		return model.RespGiziDetail{}, fmt.Errorf("data not found")
+	}
+	return result, nil
+}
+
 // GetGiziDetailService implements NutriSnapService.
 func (ns *NutriSnapServiceImpl) GetGiziDetailService(label string) (model.RespGiziDetail, error) {
-	result, err := ns.NutriSnap.GetGiziDetailReposistory(label)
+	result, err := ns.NutriSnap.GetGiziDetailRepository(label)
 	if err != nil {
 		return model.RespGiziDetail{}, fmt.Errorf("data not found")
 	}

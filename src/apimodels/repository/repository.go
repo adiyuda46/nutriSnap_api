@@ -9,15 +9,61 @@ import (
 type Repository interface {
 	GetEmailRepository(int) (string, error)
 	GetGizi(label string) (model.RespGizi, error)
-	GetGiziDetailReposistory(label string) (model.RespGiziDetail,error)
+	GetGiziDetailRepository(label string) (model.RespGiziDetail, error)
+	GetGiziAKgRepository(label string) (model.RespGiziDetail, error)
 }
 
 type DbRepository struct {
 	db *sql.DB
 }
 
+// GetGiziAKgRepository implements Repository.
+func (nr *DbRepository) GetGiziAKgRepository(label string) (model.RespGiziDetail, error) {
+	query := `SELECT "LABEL", "ENERGI", "LEMAK", "VIT_A", "VIT_B1",
+		"VIT_B2", "VIT_B3", "VIT_C", "KARBO", "PROTEIN", "SERAT_PANGAN", 
+		"KALSIUM", "FOSFOR", "NATRIUM", "KALIUM", "TEMBAGA", "BESI", "SENG", 
+		"B_KAROTEN", "KAROTEN_TOTAL", "AIR", "ABU"
+	FROM public."GIZI_AKG"
+	WHERE "LABEL" = $1`
+
+	var result model.RespGiziDetail
+	err := nr.db.QueryRow(query, label).Scan(
+		&result.Label,
+		&result.Energi,
+		&result.Lemak,
+		&result.VitA,
+		&result.VitB1,
+		&result.VitB2,
+		&result.VitB3,
+		&result.VitC,
+		&result.Karbo,
+		&result.Protein,
+		&result.SeratPangan,
+		&result.Kalsium,
+		&result.Fosfor,
+		&result.Natrium,
+		&result.Kalium,
+		&result.Tembaga,
+		&result.Besi,
+		&result.Seng,
+		&result.BKarotene,
+		&result.KarotenTotal,
+		&result.Air,
+		&result.Abu,
+	)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return model.RespGiziDetail{}, fmt.Errorf("tidak ditemukan data gizi AKG dengan label '%s'", label)
+		}
+		return model.RespGiziDetail{}, fmt.Errorf("error saat mengambil data gizi AKG: %w", err)
+	}
+
+	return result, nil
+}
+
+
 // GetGiziDetailReposistory implements Repository.
-func (nr *DbRepository) GetGiziDetailReposistory(label string) (model.RespGiziDetail, error) {
+func (nr *DbRepository) GetGiziDetailRepository(label string) (model.RespGiziDetail, error) {
 	query := `SELECT "LABEL", "ENERGI", "LEMAK", "VIT_A", "VIT_B1",
 		"VIT_B2", "VIT_B3", "VIT_C", "KARBO", "PROTEIN", "SERAT_PANGAN", 
 		"KALSIUM", "FOSFOR", "NATRIUM", "KALIUM", "TEMBAGA", "BESI", "SENG", 
@@ -59,7 +105,6 @@ func (nr *DbRepository) GetGiziDetailReposistory(label string) (model.RespGiziDe
 
 	return result, nil
 }
-
 
 // GetGizi implements Repository.
 func (nr *DbRepository) GetGizi(label string) (model.RespGizi, error) {
