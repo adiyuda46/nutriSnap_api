@@ -14,11 +14,22 @@ import (
 type NutriSnapService interface {
 	GetEmailService(id int) (string, error)
 	PredictService(string) (model.RespGizi, error)
+	GetGiziDetailService(label string) (model.RespGiziDetail, error)
 }
 
 type NutriSnapServiceImpl struct {
-	NutriSnap repository.Repository
-	Thirdparty thirdparty.HTTPRequest 
+	NutriSnap  repository.Repository
+	Thirdparty thirdparty.HTTPRequest
+}
+
+// GetGiziDetailService implements NutriSnapService.
+func (ns *NutriSnapServiceImpl) GetGiziDetailService(label string) (model.RespGiziDetail, error) {
+	result, err := ns.NutriSnap.GetGiziDetailReposistory(label)
+	if err != nil {
+		return model.RespGiziDetail{}, fmt.Errorf("data not found")
+	}
+	return result, nil
+
 }
 
 // PredictService implements NutriSnapService.
@@ -48,13 +59,12 @@ func (ns *NutriSnapServiceImpl) PredictService(imgBase64 string) (model.RespGizi
 	}
 
 	// get data gizi
-	result,err := ns.NutriSnap.GetGizi(resp.Label)
+	result, err := ns.NutriSnap.GetGizi(resp.Label)
 	if err != nil {
 		return model.RespGizi{}, fmt.Errorf("data not found")
 	}
 
-
-	return result , nil
+	return result, nil
 }
 
 // GetEmail implements NutriSnapService.
@@ -66,9 +76,9 @@ func (ns *NutriSnapServiceImpl) GetEmailService(id int) (string, error) {
 	return result, nil
 }
 
-func CreateNutriSnapServiceImpl(nutriSnap repository.Repository,  thirdpartyClient thirdparty.HTTPRequest) NutriSnapService {
+func CreateNutriSnapServiceImpl(nutriSnap repository.Repository, thirdpartyClient thirdparty.HTTPRequest) NutriSnapService {
 	return &NutriSnapServiceImpl{
-		NutriSnap: nutriSnap,
+		NutriSnap:  nutriSnap,
 		Thirdparty: thirdpartyClient,
 	}
 }

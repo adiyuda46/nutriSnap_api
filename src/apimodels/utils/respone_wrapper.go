@@ -2,7 +2,7 @@ package utils
 
 import (
 	modelapp "api_model_cnn/src/apimodels/model"
-
+	"encoding/json"
 
 	"github.com/alexcesaro/log/stdlog"
 	"github.com/gin-contrib/requestid"
@@ -132,4 +132,13 @@ func Log3rdParty(method, url, req, resp interface{}) {
 		"response": resp,
 	}).Info("Resty Response")
 	Logkoe.Info("Resty Response ==> response =", resp)
+}
+
+// ConvertResponse is a function to change struct to map interface like response format
+func ConvertResponse(data interface{}) (map[string]interface{}, string) {
+	var newData map[string]interface{}
+	dt, _ := json.Marshal(data)
+	json.Unmarshal(dt, &newData)
+
+	return newData, string(dt)
 }
