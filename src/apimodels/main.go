@@ -46,7 +46,7 @@ func main()  {
 		return
 	}
 
-	addr := ":8000" // port local host
+	addr := ":8000" // port local host nn
 	host := "http://192.168.1.4"
 
 
