@@ -36,7 +36,7 @@ func main()  {
 	}
 
 	addr := ":8081" // port local host
-	host := "http://localhost"
+	host := "http://192.168.1.4"
 
 
 	// Router
