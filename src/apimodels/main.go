@@ -16,6 +16,7 @@ import (
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
+
 // func init() {
 // 	viper.SetConfigFile("src/config/config-dev.json")
 // 	err := viper.ReadInConfig()
@@ -25,18 +26,16 @@ import (
 // }
 
 func init() {
-    viper.SetConfigFile(".env.json") 
-    err := viper.ReadInConfig()
-    if err != nil {
-        logger.Fatal(fmt.Errorf("error reading config file: %w", err)) 
-    } else {
-        fmt.Println("Successfully loaded .env.json configuration.")
-    }
+	viper.SetConfigFile(".env.json")
+	err := viper.ReadInConfig()
+	if err != nil {
+		logger.Fatal(fmt.Errorf("error reading config file: %w", err))
+	} else {
+		fmt.Println("Successfully loaded .env.json configuration.")
+	}
 }
 
-
-
-func main()  {
+func main() {
 	fmt.Println(viper.GetString("nutrisnap.server"))
 	fmt.Println(viper.GetString("token"))
 
@@ -47,8 +46,7 @@ func main()  {
 	}
 
 	addr := ":8000" // port local host nn
-	host := "http://192.168.1.4"
-
+	host := "http://192.168.1.8"
 
 	// Router
 	router := gin.New()
@@ -74,7 +72,7 @@ func main()  {
 	service := manager.CreateServiceManager(repo)
 
 	// init controller
-	controller.CreateNutriSnapController(router,service.NutriSnapService())
+	controller.CreateNutriSnapController(router, service.NutriSnapService())
 
 	c := cors.AllowAll()
 	handler := c.Handler(router)
