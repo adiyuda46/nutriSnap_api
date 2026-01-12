@@ -16,13 +16,24 @@ import (
 	logger "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
+// func init() {
+// 	viper.SetConfigFile("src/config/config-dev.json")
+// 	err := viper.ReadInConfig()
+// 	if err != nil {
+// 		logger.Fatal(err)
+// 	}
+// }
+
 func init() {
-	viper.SetConfigFile("src/config/config-dev.json")
-	err := viper.ReadInConfig()
-	if err != nil {
-		logger.Fatal(err)
-	}
+    viper.SetConfigFile(".env.json") 
+    err := viper.ReadInConfig()
+    if err != nil {
+        logger.Fatal(fmt.Errorf("error reading config file: %w", err)) 
+    } else {
+        fmt.Println("Successfully loaded .env.json configuration.")
+    }
 }
+
 
 
 func main()  {
