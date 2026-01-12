@@ -7,6 +7,6 @@
         "scheme": "postgres"
     },
     "url" : {
-        "predict" : "http://127.0.0.1:5000/predict"
+        "predict" : "http://192.168.1.4:5000/predict"
     }
 }
