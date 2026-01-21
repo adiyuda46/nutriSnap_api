@@ -28,5 +28,6 @@ func CreateNutriSnapController(r *gin.Engine, nutriSnap service.NutriSnapService
 		//USER
 		// V1public.POST("/register")
 		// V1public.POST("/")
+		//
 	}
 }
